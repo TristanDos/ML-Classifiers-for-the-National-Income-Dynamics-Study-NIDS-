@@ -1,0 +1,45 @@
+.nav-tabs .type-count, 
+.nav-tabs .type-count-all{
+  font-size: 0.8rem; 
+  color: var(--wbg-lightgray);
+  margin-left: 1.5rem;
+}
+.nav-tabs .type-count-all{
+  margin-left: 0;
+}
+.nav-tabs a.dataset-type-tab {
+  color: var(--action-color);
+  border-width: 0 0 4px 0;
+  padding-bottom: .5rem;
+}
+.nav-tabs a.dataset-type-tab .fa {
+  min-width: 1rem;
+}
+.nav-tabs a.dataset-type-tab:hover {
+  color: var(--action-color--hover);
+  border-color: transparent transparent var(--action-color--hover) transparent;
+}
+
+.nav-tabs.search-nav-tabs .nav-item .active {
+  border-bottom: 3px solid var(--action-color);
+}
+/*
+     FILE ARCHIVED ON 18:36:06 Apr 12, 2024 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 21:35:48 Aug 14, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.53
+  exclusion.robots: 0.02
+  exclusion.robots.policy: 0.009
+  esindex: 0.01
+  cdx.remote: 12.753
+  LoadShardBlock: 117.125 (3)
+  PetaboxLoader3.datanode: 102.424 (4)
+  load_resource: 122.261
+  PetaboxLoader3.resolve: 107.549
+*/

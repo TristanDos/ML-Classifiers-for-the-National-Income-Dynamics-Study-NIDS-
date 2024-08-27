@@ -1,0 +1,131 @@
+/* user defined custom styles or overrides only */
+.site-header {
+    border-bottom: solid 1px #007C92;
+    margin-bottom: 20px;
+}
+
+.site-header .navbar-light .navbar-brand,
+.site-header .navbar-light .navbar-nav .nav-link {
+    color: #007C92;
+}
+
+.site-header .navbar-light .navbar-brand a.active,
+.site-header .navbar-light .navbar-nav .nav-link a.active {
+    color: #007C92;
+    border-bottom: solid 2px #007C92;
+}
+
+.site-header .nada-site-subtitle {
+    font-size: 15px;
+    color: #99E071;
+    margin-top: -10px;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: #007C92;
+    border-bottom: solid 2px #007C92;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #99E071;
+    border-bottom: solid 3px #99E071;
+}
+
+.wb-btn-outline {
+    border-color: #007C92;
+}
+
+.wb-btn-outline:hover {
+    border-color: #007C92;
+    background-color: #007C92;
+    color: #fff;
+}
+
+.btn-outline-primary {
+    color: #007C92;
+}
+
+.btn-outline-primary .fa {
+    color: #007C92;
+}
+
+.wb-btn {
+    border-color: #007C92;
+    background-color: #007C92;
+    color: #fff;
+}
+
+.wb-btn:hover {
+    color: #fff;
+}
+
+.wb-fill {
+    color: #007C92;
+}
+
+
+footer .full-row-footer-black-components {
+    padding-top: 16px;
+    padding-bottom: 6px;
+    background-color: #007C92;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+footer .footer hr {
+    border-top: 1px solid #007C92;
+}
+
+
+.study-metadata .resources fieldset {
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    color: #007C92;
+}
+
+.study-metadata .resource .caption {
+    color: #007C92;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: right;
+    width: 170px;
+}
+
+
+.study-metadata-page .page-header .nav-tabs .active {
+    background: white;
+    font-weight: bold;
+    border-top: 2px solid #007C92;
+}
+
+
+a {
+    color: #007C92;
+    transition: all .35s; }
+    a:hover {
+      text-decoration: none;
+      color: #99E071; }
+/*
+     FILE ARCHIVED ON 18:36:07 Apr 12, 2024 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 21:35:48 Aug 14, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.489
+  exclusion.robots: 0.019
+  exclusion.robots.policy: 0.009
+  esindex: 0.011
+  cdx.remote: 11.071
+  LoadShardBlock: 85.651 (3)
+  PetaboxLoader3.datanode: 111.97 (4)
+  load_resource: 326.875
+  PetaboxLoader3.resolve: 291.633
+*/

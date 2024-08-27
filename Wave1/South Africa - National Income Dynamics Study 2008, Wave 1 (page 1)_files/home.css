@@ -1,0 +1,110 @@
+/* Inline style externalized from home.php */
+
+h1 {
+    /* font-size: 1.9rem; */
+}
+
+.home h5 {
+    font-size: 1.1rem;
+}
+
+.home .breadcrumb {
+    display: none;
+}
+
+.wb-box-sidebar h3 {
+    font-size: 18px;
+}
+
+.wb-box-sidebar h5 {
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 115%;
+}
+
+.site-header {
+    margin-bottom: 0px;
+}
+
+.card-title {
+    /*font-size:15px;*/
+    line-height: 24px;
+}
+
+.card-text {
+    color: #464a4cd6;
+    font-size: 13px;
+}
+
+.card {}
+
+.card .card-body {}
+
+
+/*.card-collection {
+        height:320px;
+        overflow:hidden;
+    }*/
+
+.icon-x i {
+    font-size: 80px;
+}
+
+.icon-x i:hover {
+    cursor: pointer;
+}
+
+.container-2 h5 {
+    margin-bottom: 0px;
+    color: #31b0d5
+}
+
+.latest-additions h3 {
+    font-size: 1.5rem
+}
+
+
+/*.latest-additions h5{font-weight:normal;font-size:16px;}*/
+
+.latest-additions > h3,
+.wb-region > h3,
+.wb-region > h4  {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.latest-additions .survey-row .survey-stats {
+    font-size: 0.85rem;
+}
+
+.sub-text {}
+
+.sub-text-collections {
+    margin-top: 0px;
+}
+
+.wb-search--browse {}
+
+.wb-features-list {}
+
+.wb-featured-collections {}
+/*
+     FILE ARCHIVED ON 18:36:01 Apr 12, 2024 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 21:35:48 Aug 14, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.724
+  exclusion.robots: 0.026
+  exclusion.robots.policy: 0.011
+  esindex: 0.014
+  cdx.remote: 13.838
+  LoadShardBlock: 43.918 (3)
+  PetaboxLoader3.datanode: 45.965 (4)
+  load_resource: 342.666
+  PetaboxLoader3.resolve: 332.786
+*/
