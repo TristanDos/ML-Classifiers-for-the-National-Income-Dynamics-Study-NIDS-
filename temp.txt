@@ -1,0 +1,20 @@
+Wave 1:
+Processing Participants: 100%|██████████| 15342/15342 [00:03<00:00, 4702.90it/s]
+Total Depressed Participants: 6175
+Calculated Prevalence for Depression: 40.25%
+Wave 2:
+Processing Participants: 100%|██████████| 16353/16353 [00:03<00:00, 4905.90it/s]
+Total Depressed Participants: 4788
+Calculated Prevalence for Depression: 29.28%
+Wave 3:
+Processing Participants: 100%|██████████| 18474/18474 [00:03<00:00, 5115.99it/s]
+Total Depressed Participants: 6042
+Calculated Prevalence for Depression: 32.71%
+Wave 4:
+Processing Participants: 100%|██████████| 22615/22615 [00:04<00:00, 5124.54it/s]
+Total Depressed Participants: 7406
+Calculated Prevalence for Depression: 32.75%
+Wave 5:
+Processing Participants: 100%|██████████| 23628/23628 [00:04<00:00, 5042.39it/s]
+Total Depressed Participants: 7362
+Calculated Prevalence for Depression: 31.16%

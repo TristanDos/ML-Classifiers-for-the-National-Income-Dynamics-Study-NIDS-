@@ -1,0 +1,41 @@
+measure,location,sex,age,cause,metric,year,val,upper,lower
+Prevalence,World Bank Low Income,Both,All ages,Depressive disorders,Number,2019,24676471.14942272,28320248.867928013,21445164.62623217
+Prevalence,World Bank Low Income,Both,All ages,Depressive disorders,Percent,2019,0.035983989099818446,0.0412313220482966,0.03125324773901193
+Prevalence,Eastern Mediterranean Region,Both,All ages,Depressive disorders,Number,2019,28334961.179561112,32434046.41393336,24710582.300601434
+Prevalence,Eastern Mediterranean Region,Both,All ages,Depressive disorders,Percent,2019,0.04097292663680234,0.046855953339937154,0.03571096919023313
+Prevalence,European Region,Both,All ages,Depressive disorders,Number,2019,38707426.13407584,42912629.80103111,34891153.88073011
+Prevalence,European Region,Both,All ages,Depressive disorders,Percent,2019,0.04370846661244862,0.048530223099117045,0.03928687374858059
+Prevalence,South-East Asia Region,Both,All ages,Depressive disorders,Number,2019,70537372.4422638,78230665.33061828,63189304.18564665
+Prevalence,South-East Asia Region,Both,All ages,Depressive disorders,Percent,2019,0.0359601609212106,0.039869806652076845,0.03213485388396643
+Prevalence,World Bank Lower Middle Income,Both,All ages,Depressive disorders,Number,2019,108211664.65016596,120973334.02851202,96565637.80214562
+Prevalence,World Bank Lower Middle Income,Both,All ages,Depressive disorders,Percent,2019,0.03514426257673146,0.03934726660445391,0.03132384818181001
+Prevalence,World Bank Upper Middle Income,Both,All ages,Depressive disorders,Number,2019,96899561.4169218,107378311.40631065,87312117.34270582
+Prevalence,World Bank Upper Middle Income,Both,All ages,Depressive disorders,Percent,2019,0.03826376990985969,0.04238011438279593,0.0344703549584883
+Prevalence,African Region,Both,All ages,Depressive disorders,Number,2019,37412090.79153249,42601383.73754062,32860849.228114255
+Prevalence,African Region,Both,All ages,Depressive disorders,Percent,2019,0.03502104693475504,0.03983630999744614,0.030722336253184837
+Prevalence,Region of the Americas,Both,All ages,Depressive disorders,Number,2019,39299785.08088722,43430749.19876777,35582072.739681534
+Prevalence,Region of the Americas,Both,All ages,Depressive disorders,Percent,2019,0.0408969665276707,0.04511491569240291,0.03703984665383897
+Prevalence,World Bank High Income,Both,All ages,Depressive disorders,Number,2019,49658752.95440141,54807438.467536286,45013418.44600707
+Prevalence,World Bank High Income,Both,All ages,Depressive disorders,Percent,2019,0.043593487595616785,0.048196607844725056,0.03947990971355864
+Prevalence,Western Pacific Region,Both,All ages,Depressive disorders,Number,2019,64375090.96378566,71500087.54037216,58152615.06943392
+Prevalence,Western Pacific Region,Both,All ages,Depressive disorders,Percent,2019,0.03475818822354817,0.03857009792971472,0.03135538903542516
+Incidence,European Region,Both,All ages,Depressive disorders,Number,2019,41871325.53449121,47223397.256666705,37002347.208635405
+Incidence,European Region,Both,All ages,Depressive disorders,Percent,2019,0.0088340085504103,0.010040709506219138,0.007690443403988112
+Incidence,South-East Asia Region,Both,All ages,Depressive disorders,Number,2019,73197177.45268719,83120388.21642983,63892166.17194525
+Incidence,South-East Asia Region,Both,All ages,Depressive disorders,Percent,2019,0.0066704992649372664,0.007615496399249378,0.005756073342686445
+Incidence,World Bank Low Income,Both,All ages,Depressive disorders,Number,2019,27819323.466239605,32523252.888655096,23629758.01345686
+Incidence,World Bank Low Income,Both,All ages,Depressive disorders,Percent,2019,0.006871872365861501,0.008094184914899416,0.005769097717120927
+Incidence,World Bank Lower Middle Income,Both,All ages,Depressive disorders,Number,2019,114546403.79995975,130431413.65933388,100215726.61508958
+Incidence,World Bank Lower Middle Income,Both,All ages,Depressive disorders,Percent,2019,0.006600599673852493,0.007590996445961904,0.005682471010057177
+Incidence,World Bank Upper Middle Income,Both,All ages,Depressive disorders,Number,2019,92919354.75486349,104584491.05741,81977252.09283791
+Incidence,World Bank Upper Middle Income,Both,All ages,Depressive disorders,Percent,2019,0.007352774733928803,0.008371169464589214,0.006408555693880694
+Incidence,African Region,Both,All ages,Depressive disorders,Number,2019,41579400.27810375,48118228.099669576,35774522.7383232
+Incidence,African Region,Both,All ages,Depressive disorders,Percent,2019,0.006510155524347152,0.007599813450175832,0.005506432697919828
+Incidence,Region of the Americas,Both,All ages,Depressive disorders,Number,2019,44907619.14526993,50299375.66569952,39898077.829472035
+Incidence,Region of the Americas,Both,All ages,Depressive disorders,Percent,2019,0.007921932826763473,0.008971078317768572,0.006897379010790065
+Incidence,Western Pacific Region,Both,All ages,Depressive disorders,Number,2019,54559818.02900215,60977426.4783273,48676511.68020704
+Incidence,Western Pacific Region,Both,All ages,Depressive disorders,Percent,2019,0.006562593376041886,0.007437167513011681,0.005739959477316114
+Incidence,World Bank High Income,Both,All ages,Depressive disorders,Number,2019,54728174.908750705,61166352.47012375,48848341.129849076
+Incidence,World Bank High Income,Both,All ages,Depressive disorders,Percent,2019,0.008957192115810895,0.010098224608883048,0.00786176216258725
+Incidence,Eastern Mediterranean Region,Both,All ages,Depressive disorders,Number,2019,33062898.653268885,38586607.77147583,28118945.125334706
+Incidence,Eastern Mediterranean Region,Both,All ages,Depressive disorders,Percent,2019,0.008299565293249978,0.009758225512515577,0.0069324625891891275
