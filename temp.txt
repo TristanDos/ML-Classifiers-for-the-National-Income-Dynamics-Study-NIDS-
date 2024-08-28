@@ -1,0 +1,11 @@
+- [ ] Type Fixing/Dataframe Preparation
+- [ ] Feature Engineering
+- [ ] Outlier Removal
+- [ ] Dataset Splitting
+
+> - [ ] Waves
+> - [ ] Targets
+> > - [ ] Depressed Bool
+> > - [ ] Questions as Targets
+> > - [ ] Depression Score
+> - [ ] Train, Test, Val
