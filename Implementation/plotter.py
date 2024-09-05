@@ -7,7 +7,7 @@ import seaborn as sns
 '''
 CUSTOM PLOTTING FUNCTION FOR PLOTTING NICE BAR GRAPHS
 '''
-def plot_bar(series: pd.Series, title: str, ax=None, log_scale=False):
+def plot_bar(series: pd.Series, title: str, ax=None, log_scale=False, rotation=0):
     """
     Plots a bar graph for the given pandas Series. If an axis object is provided,
     it plots on that axis; otherwise, it creates its own figure.
@@ -26,6 +26,8 @@ def plot_bar(series: pd.Series, title: str, ax=None, log_scale=False):
     sns.barplot(x=value_counts.index, y=value_counts.values, ax=ax)
     ax.set_xlabel(series.name)
     ax.set_ylabel('Count')
+
+    ax.set_xticklabels(value_counts.index, rotation=rotation)
     if log_scale:
         ax.set_yscale('log')
         ax.set_title(f'Bar Graph of {title} (log scale)')
@@ -53,7 +55,7 @@ def get_percent_na(df: pd.DataFrame):
 '''
 CUSTOM PLOTTING FUNCTION FOR PLOTTING NICE HISTOGRAMS
 '''
-def plot_histogram(series: pd.Series, title: str, ax=None, log_scale=False, bins='auto'):
+def plot_histogram(series: pd.Series, title: str, ax=None, log_scale=False, bins='auto', rotation=0):
     """
     Plots a histogram for the given pandas Series. If an axis object is provided,
     it plots on that axis; otherwise, it creates its own figure.
@@ -71,6 +73,8 @@ def plot_histogram(series: pd.Series, title: str, ax=None, log_scale=False, bins
     sns.histplot(series, kde=True, ax=ax, bins=bins)
     ax.set_xlabel(series.name)
     ax.set_ylabel('Count')
+
+    ax.set_xticklabels(series, rotation=rotation)
     if log_scale:
         ax.set_xscale('log')
         ax.set_title(f'Histogram of {title} (log scale)')
