@@ -7,18 +7,20 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 
 
 class LogisticRegressionModel:
-    def __init__(self, csv_file):
-        self.csv_file = csv_file
+    def __init__(self, df : pd.DataFrame, target):
+        # self.csv_file = csv_file
         self.model = None
         self.grid_search = None
+        self.df = df
+        self.target = target
 
     def load_data(self):
         # Load data from the provided CSV file
-        df = pd.read_csv(self.csv_file)
+        df = self.df
         
         # Separate the target variable from features
-        y = df['depressed']  # Assuming 'depressed' is the target column
-        X = df.drop(columns=['depressed', 'w1_a_outcome', 'pid'])  # Drop non-feature columns
+        y = self.target  # Assuming 'depressed' is the target column
+        X = df.drop(columns=['depressed', 'pid'])  # Drop non-feature columns
         
         # Split data into train+validation and test sets (80/20)
         X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2, random_state=42)

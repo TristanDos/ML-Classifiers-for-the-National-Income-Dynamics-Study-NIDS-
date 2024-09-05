@@ -18,7 +18,7 @@ class RandomForestModel:
         
         # Separate the target variable from features
         y = df['depressed']  # Assuming 'depressed' is the target column
-        X = df.drop(columns=['depressed', 'w1_a_outcome', 'pid'])  # Drop non-feature columns
+        X = df.drop(columns=['depressed', 'pid'])  # Drop non-feature columns
         
         # Split data into train+validation and test sets (80/20)
         X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
