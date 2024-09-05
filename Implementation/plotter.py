@@ -39,7 +39,7 @@ def plot_bar(series: pd.Series, title: str, ax=None, log_scale=False, rotation=0
         plt.show()
 
 '''
-USED IN VARIOUS QUESTIONS FOR OBTAINING THE PERCENTAGE NAN ENTRIES OF A COLUMN
+USED FOR OBTAINING THE PERCENTAGE NAN ENTRIES OF A COLUMN
 '''
 def get_percent_na(df: pd.DataFrame):
     missing_percentage = {}
@@ -65,22 +65,29 @@ def plot_histogram(series: pd.Series, title: str, ax=None, log_scale=False, bins
     - ax (matplotlib.axes.Axes, optional): The axis to plot on. If None, a new figure is created.
     - title (str): The title for the plot.
     - log_scale (bool): Whether to apply a logarithmic scale to the x-axis.
+    - bins (int or sequence of scalars, optional): The number of bins or specific bin edges.
+    - rotation (float): Rotation angle for x-axis labels.
     """
     if ax is None:
         # Create a new figure and axis if none are provided
         fig, ax = plt.subplots(figsize=(7, 4))
     
+    # Plot the histogram
     sns.histplot(series, kde=True, ax=ax, bins=bins)
     ax.set_xlabel(series.name)
     ax.set_ylabel('Count')
 
-    ax.set_xticklabels(series, rotation=rotation)
+    # Apply log scale if specified
     if log_scale:
         ax.set_xscale('log')
         ax.set_title(f'Histogram of {title} (log scale)')
     else:
         ax.set_title(f'Histogram of {title}')
-    
+
+    # Rotate x-axis labels
+    ax.set_xticklabels(ax.get_xticks(), rotation=rotation)
+
+    # Display the plot if no axis was provided
     if ax is None:
         plt.tight_layout()
         plt.show()
