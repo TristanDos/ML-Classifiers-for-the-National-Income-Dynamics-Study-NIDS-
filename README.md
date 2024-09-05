@@ -1,4 +1,4 @@
-# Honours Research Topic - Tristan Dos Remendos (2465830)
+# Honours Research - Tristan Dos Remendos (2465830)
 ## Predicting Likelihood of Depression using Machine Learning
 
 - [Abstract](#abstract)
