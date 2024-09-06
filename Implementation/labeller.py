@@ -6,6 +6,10 @@ import warnings
 
 warnings.filterwarnings('ignore', category=FutureWarning)
 
+waves_in = input("Which waves should be labelled (separate with spaces eg. '1 3 5')\n")
+waves_to_label = waves_in.split(" ")
+waves_to_label = [int(wave_str) for wave_str in waves_to_label]
+
 class Wave:
     def __init__(self, data: pd.DataFrame, select_cols: List[str]):
         self.data: pd.DataFrame = data
@@ -38,7 +42,7 @@ reverse_scoring = {
 incidence = []
 
 # Loop through each wave
-for i in tqdm(range(1, 3), desc="Labelling Participants"):
+for i in tqdm(waves_to_label, desc="Labelling Participants"):
     url = 'CSV/wave' + str(i) + '_select.csv'
     data = pd.read_csv(url)
 
