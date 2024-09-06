@@ -77,7 +77,7 @@ for i in tqdm(waves_to_label, desc="Labelling Participants"):
     nan_rows = new_data[new_data.isna().any(axis=1)]
 
     # Print rows with NaN values
-    print(nan_rows)
+    # print(nan_rows)
 
     new_data.to_csv(f'CSV/wave{i}_select_labelled.csv', index=False)
 
