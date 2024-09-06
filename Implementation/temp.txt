@@ -4,7 +4,9 @@ df = df.rename(columns={f'w{wave_num}_a_gen': 'gender',
                         f'w{wave_num}_a_popgrp': 'race',
                         f'w{wave_num}_a_marstt': 'marital_status',
                         f'w{wave_num}_a_brnprov': 'born_province',
+
                         f'w{wave_num}_a_mthali': 'parents_alive',
+
                         f'w{wave_num}_a_em1': 'employed',
                         f'w{wave_num}_a_em1pay': 'employed_take_home',
                         f'w{wave_num}_a_em1hrs': 'employed_weekly_hours',
@@ -17,7 +19,38 @@ df = df.rename(columns={f'w{wave_num}_a_gen': 'gender',
                         f'w{wave_num}_a_edschgrd': 'highest_grade_school',
                         f'w{wave_num}_a_edter': 'tertiary_education',
                         # f'w{wave_num}_a_ed07att': 'attended_courses',
-                        f'w{wave_num}_a_ed0{7 + wave_num}cur': 'currently_enrolled',
+                        f'w{wave_num}_a_ed{curr_year}cur': 'currently_enrolled',
+
+                        f'w{wave_num}_a_hldes': 'health_status',
+                        f'w{wave_num}_a_hlcon': 'time_since_prev_consulation',
+                        f'w{wave_num}_a_hlconmed': 'medicine_prescribed_at_prev_consulation',
+
+                        f"w{wave_num}_a_hl30fl": "flu_symptoms",
+                        f"w{wave_num}_a_hl30fev": "fever",
+                        f"w{wave_num}_a_hl30pc": "persistent_cough",
+                        f"w{wave_num}_a_hl30cb": "cough_with_blood",
+                        f"w{wave_num}_a_hl30tc": "tight_chest",
+                        f"w{wave_num}_a_hl30cp": "chest_pain",
+                        f"w{wave_num}_a_hl30b": "body_ache",
+                        f"w{wave_num}_a_hl30h": "headache",
+                        f"w{wave_num}_a_hl30ba": "back_ache",
+                        f"w{wave_num}_a_hl30jp": "joint_pain_arthritis",
+                        f"w{wave_num}_a_hl30v": "vomiting",
+                        f"w{wave_num}_a_hl30d": "diarrhoea",
+                        f"w{wave_num}_a_hl30w": "felt_weak",
+                        f"w{wave_num}_a_hl30pua": "pain_in_upper_abdomen",
+                        f"w{wave_num}_a_hl30pla": "pain_in_lower_abdomen",
+                        f"w{wave_num}_a_hl30pu": "painful_urination",
+                        f"w{wave_num}_a_hl30sa": "swelling_ankles",
+                        f"w{wave_num}_a_hl30r": "rash",
+                        f"w{wave_num}_a_hl30sd": "skin_disorders",
+                        f"w{wave_num}_a_hl30c": "conjunctivitis_eye_infection",
+                        f"w{wave_num}_a_hl30wl": "severe_weight_loss",
+                        f"w{wave_num}_a_hl30ye": "yellow_eyes",
+                        f"w{wave_num}_a_hl30ml": "memory_loss",
+                        f"w{wave_num}_a_hl30i": "serious_injury"
+
+
                         })
 
 
