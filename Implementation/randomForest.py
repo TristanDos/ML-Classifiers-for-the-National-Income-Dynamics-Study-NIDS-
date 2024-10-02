@@ -7,17 +7,18 @@ from tqdm import tqdm
 
 
 class RandomForestModel:
-    def __init__(self, csv_file):
-        self.csv_file = csv_file
+    def __init__(self, df : pd.DataFrame, target):
         self.model = None
         self.grid_search = None
+        self.df = df
+        self.target = target
 
     def load_data(self):
         # Load data from the provided CSV file
-        df = pd.read_csv(self.csv_file)
+        df = self.df
         
         # Separate the target variable from features
-        y = df['depressed']  # Assuming 'depressed' is the target column
+        y = self.target  # Assuming 'depressed' is the target column
         X = df.drop(columns=['depressed', 'pid'])  # Drop non-feature columns
         
         # Split data into train+validation and test sets (80/20)

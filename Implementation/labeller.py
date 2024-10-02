@@ -3,12 +3,23 @@ from tqdm import tqdm
 from typing import List
 import plotter
 import warnings
+import sys
 
 warnings.filterwarnings('ignore', category=FutureWarning)
 
-waves_in = input("Which waves should be labelled (separate with spaces eg. '1 3 5')\n")
-waves_to_label = waves_in.split(" ")
-waves_to_label = [int(wave_str) for wave_str in waves_to_label]
+waves_to_label = []
+
+# Access command-line arguments if using bash script
+params = sys.argv
+if len(params) != 1:
+    for i in range(1, len(params)):
+        waves_to_label.append(int(params[i]))
+
+# Else take in input from user
+else: 
+    waves_in = input("Which waves should be labelled (separate with spaces eg. '1 3 5')\n")
+    waves_to_label = waves_in.split(" ")
+    waves_to_label = [int(wave_str) for wave_str in waves_to_label]
 
 class Wave:
     def __init__(self, data: pd.DataFrame, select_cols: List[str]):

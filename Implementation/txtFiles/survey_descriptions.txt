@@ -1,0 +1,47 @@
+w1_a_outcome - Outcome of the survey
+
+(Demographic)
+w1_a_gen - Gender
+w1_a_dob_m - DOB month
+w1_a_dob_y - DOB year
+w1_a_popgrp - Population Group
+w1_a_marstt - Marital Status
+w1_a_mary - How many years married/together
+w1_a_timesep - How many years split/divorced
+w1_a_brnprov - Living province
+w1_a_brncc - Living Country
+
+(Women Only)
+w1_a_bhbrth - Given Birth
+
+w1_a_mthali - Parents alive?
+
+w1_a_em1 - Currently being paid regularly
+w1_a_em1inc - Earnings last month before deductions
+w1_a_em1pay - Take home pay
+w1_a_em1hrs - Hours Worked
+w1_a_ems - Self Employed
+w1_a_emshrs - Hours Worked
+w1_a_emc - Casual Work
+w1_a_emchrs - Hours Worked
+
+(Income Grant Types)
+w1_a_incgovpen	w1_a_incgovpen_v	w1_a_incppen	w1_a_incppen_v	w1_a_incret	w1_a_incret_v	w1_a_incretp	w1_a_incretp_v	w1_a_incuif	w1_a_incuif_v	w1_a_incwc	w1_a_incwc_v	w1_a_incdis	w1_a_incdis_v	w1_a_incchld	w1_a_incchld_v	w1_a_incfos	w1_a_incfos_v	w1_a_inccare	w1_a_inccare_v	w1_a_incint	w1_a_incint_v	w1_a_incinh	w1_a_incinh_v	w1_a_incwar	w1_a_incwar_v	w1_a_incrnt	w1_a_incrnt_v	w1_a_incretr	w1_a_incretr_v	w1_a_inclob	w1_a_inclob_v	w1_a_incgif	w1_a_incgif_v	w1_a_incloan	w1_a_incloan_v	w1_a_incsale	w1_a_incsale_v	w1_a_inco	w1_a_inco_v	w1_a_inco_o
+
+w1_a_owncom - Owns computer
+w1_a_owncel - Owns cell phone
+
+(Debts)
+w1_a_dtbnd - Home loan
+
+(School)
+w1_a_edschgrd - Highest Grade in school
+w1_a_edter - Tertiary Education?
+w1_a_ed07att - Attended school/courses
+w1_a_ed07sub - What subject were you studying in 07
+w1_a_ed08cur - Currently enrolled
+w1_a_ed08cursub - Current subject
+
+(Health)
+w1_a_hldes - Current Health
+w1_a_hlcon - Last consultation
