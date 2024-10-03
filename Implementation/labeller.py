@@ -100,4 +100,12 @@ for i in tqdm(waves_to_label, desc="Labelling Participants"):
     wave = Wave(new_data, select_cols)
     waves.append(wave)
 
-for i in range(len(incidence)): print((f"Wave {i+1}: {round(incidence[i], 3)}% depressed"))
+output_text = ""
+for i in range(len(incidence)):
+    text = f"Wave {i+1}: {round(incidence[i], 3)}% depressed"
+    print(text)
+    output_text += text + "\n"
+
+f = open("DepressionPercentages.txt", "w")
+f.write(output_text)
+f.close()

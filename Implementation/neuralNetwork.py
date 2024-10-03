@@ -10,6 +10,15 @@ from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import GridSearchCV
 from tqdm import tqdm
 
+'''
+STRUCTURE AS FOLLOWS:
+
+(self, neurons=64, layers=2, dropout_rate=0.2, learning_rate=0.001)
+relu activation functions in hidden layers
+sigmoid activation in output layer
+binary cross-entropy loss function
+'''
+
 class DeepNeuralNetworkModel:
     def __init__(self, df: pd.DataFrame, target):
         self.model = None
@@ -35,7 +44,7 @@ class DeepNeuralNetworkModel:
         
         return X_train, X_val, X_test, y_train, y_val, y_test
 
-    def create_model(self, neurons=64, layers=2, dropout_rate=0.2, learning_rate=0.001):
+    def create_model(self, neurons=128, layers=5, dropout_rate=0.2, learning_rate=0.001):
         model = Sequential()
         model.add(Dense(neurons, activation='relu', input_shape=(self.X_train.shape[1],)))
         model.add(Dropout(dropout_rate))
