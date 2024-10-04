@@ -34,7 +34,7 @@ class SVMModel:
 
     def train_svm(self, X_train, y_train):
         # Initialize and train the SVM model
-        self.model = SVC(random_state=42)
+        self.model = SVC(random_state=42, verbose=True)
         self.model.fit(X_train, y_train)
 
     def evaluate_model(self, X, y_true, set_name="Validation"):
@@ -50,9 +50,9 @@ class SVMModel:
         out = ""
         out += f"{set_name} Accuracy: {accuracy:.2f}" + "\n"
         out += f"{set_name} Confusion Matrix:" + "\n"
-        out += conf_matrix + "\n"
+        out += str(conf_matrix) + "\n"
         out += f"{set_name} Classification Report:" + "\n"
-        out += class_report + "\n"
+        out += str(class_report) + "\n"
         print(out)
         return out
 
@@ -69,14 +69,14 @@ class SVMModel:
         param_combinations = list(ParameterGrid(param_grid))
 
         # Initialize progress bar with total number of combinations
-        with tqdm(total=len(param_combinations)) as pbar:
+        with tqdm(total=len(param_combinations), desc="Optimising hyper parameters") as pbar:
             best_score = -np.inf
             best_params = None
 
             # Iterate through all combinations of hyperparameters
             for params in param_combinations:
                 # Initialize model with current params
-                model = SVC(random_state=42, **params)
+                model = SVC(random_state=42, verbose=True **params)
                 
                 # Perform cross-validation
                 scores = cross_val_score(model, X_train, y_train, cv=5)
@@ -98,7 +98,7 @@ class SVMModel:
         print("Best Score:", best_score)
 
         # Train the model with the best parameters
-        self.model = SVC(random_state=42, **best_params)
+        self.model = SVC(random_state=42, verbose=True, **best_params)
         self.model.fit(X_train, y_train)
 
     def run(self):

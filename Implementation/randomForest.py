@@ -31,7 +31,7 @@ class RandomForestModel:
 
     def train_random_forest(self, X_train, y_train):
         # Initialize and train the Random Forest model
-        self.model = RandomForestClassifier(random_state=42)
+        self.model = RandomForestClassifier(random_state=42, verbose=True)
         self.model.fit(X_train, y_train)
 
     def evaluate_model(self, X, y_true, set_name="Validation"):
@@ -47,9 +47,9 @@ class RandomForestModel:
         out = ""
         out += f"{set_name} Accuracy: {accuracy:.2f}" + "\n"
         out += f"{set_name} Confusion Matrix:" + "\n"
-        out += conf_matrix + "\n"
+        out += str(conf_matrix) + "\n"
         out += f"{set_name} Classification Report:" + "\n"
-        out += class_report + "\n"
+        out += str(class_report) + "\n"
         print(out)
         return out
 
@@ -125,7 +125,7 @@ class RandomForestModel:
         testing_results = self.evaluate_model(X_test, y_test, set_name="Test")
         
         # Perform grid search to find the best hyperparameters
-        self.perform_grid_search(X_train, y_train)
+        # self.perform_grid_search(X_train, y_train)
 
         f = open("results_RF.txt", "w")
         f.write(validation_results + testing_results)

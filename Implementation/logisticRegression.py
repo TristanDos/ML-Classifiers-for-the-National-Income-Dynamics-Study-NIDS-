@@ -33,7 +33,7 @@ class LogisticRegressionModel:
 
     def train_logistic_regression(self, X_train, y_train):
         # Initialize and train the Logistic Regression model
-        self.model = LogisticRegression(random_state=42, max_iter=1000)
+        self.model = LogisticRegression(random_state=42, max_iter=1000, verbose = 1)
         self.model.fit(X_train, y_train)
 
     def evaluate_model(self, X, y_true, set_name="Validation"):
@@ -49,9 +49,9 @@ class LogisticRegressionModel:
         out = ""
         out += f"{set_name} Accuracy: {accuracy:.2f}" + "\n"
         out += f"{set_name} Confusion Matrix:" + "\n"
-        out += conf_matrix + "\n"
+        out += str(conf_matrix) + "\n"
         out += f"{set_name} Classification Report:" + "\n"
-        out += class_report + "\n"
+        out += str(class_report) + "\n"
         print(out)
         return out
 
@@ -73,8 +73,8 @@ class LogisticRegressionModel:
         
         # Print best parameters and best score
         out = ""
-        out += "Best Parameters:", self.grid_search.best_params_ + "\n"
-        out += "Best Score:", self.grid_search.best_score_ + "\n"
+        out += "Best Parameters: " + str(self.grid_search.best_params_) + "\n"
+        out += "Best Score: " + str(self.grid_search.best_score_) + "\n"
         print(out)
         return out, self.grid_search.best_params_
 

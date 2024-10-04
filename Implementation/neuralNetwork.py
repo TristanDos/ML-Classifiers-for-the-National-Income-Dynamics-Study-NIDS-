@@ -67,7 +67,7 @@ class DeepNeuralNetworkModel:
                                  validation_data=(X_val, y_val),
                                  epochs=100, 
                                  batch_size=32, 
-                                 verbose=0)
+                                 verbose=True)
         return history
 
     def evaluate_model(self, X, y_true, set_name="Validation"):
@@ -83,9 +83,9 @@ class DeepNeuralNetworkModel:
         out = ""
         out += f"{set_name} Accuracy: {accuracy:.2f}" + "\n"
         out += f"{set_name} Confusion Matrix:" + "\n"
-        out += conf_matrix + "\n"
+        out += str(conf_matrix) + "\n"
         out += f"{set_name} Classification Report:" + "\n"
-        out += class_report + "\n"
+        out += str(class_report) + "\n"
         print(out)
         return out
 
