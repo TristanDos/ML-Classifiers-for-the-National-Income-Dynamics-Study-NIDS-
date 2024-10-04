@@ -4,6 +4,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import pickle
 
 
 class LogisticRegressionModel:
@@ -45,11 +46,14 @@ class LogisticRegressionModel:
         class_report = classification_report(y_true, y_pred)
         
         # Print results
-        print(f"{set_name} Accuracy: {accuracy:.2f}")
-        print(f"{set_name} Confusion Matrix:")
-        print(conf_matrix)
-        print(f"{set_name} Classification Report:")
-        print(class_report)
+        out = ""
+        out += f"{set_name} Accuracy: {accuracy:.2f}" + "\n"
+        out += f"{set_name} Confusion Matrix:" + "\n"
+        out += conf_matrix + "\n"
+        out += f"{set_name} Classification Report:" + "\n"
+        out += class_report + "\n"
+        print(out)
+        return out
 
     def perform_grid_search(self, X_train, y_train):
         # Create a pipeline with standard scaler and logistic regression
@@ -68,8 +72,11 @@ class LogisticRegressionModel:
         self.grid_search.fit(X_train, y_train)
         
         # Print best parameters and best score
-        print("Best Parameters:", self.grid_search.best_params_)
-        print("Best Score:", self.grid_search.best_score_)
+        out = ""
+        out += "Best Parameters:", self.grid_search.best_params_ + "\n"
+        out += "Best Score:", self.grid_search.best_score_ + "\n"
+        print(out)
+        return out, self.grid_search.best_params_
 
     def run(self):
         # Load and split the data
@@ -79,13 +86,37 @@ class LogisticRegressionModel:
         self.train_logistic_regression(X_train, y_train)
 
         # Evaluate the model on the validation set
-        self.evaluate_model(X_val, y_val, set_name="Validation")
+        validation_results = self.evaluate_model(X_val, y_val, set_name="Validation")
         
         # Evaluate the model on the test set
-        self.evaluate_model(X_test, y_test, set_name="Test")
+        testing_results = self.evaluate_model(X_test, y_test, set_name="Test")
         
         # Perform grid search to find the best hyperparameters
-        self.perform_grid_search(X_train, y_train)
+        cv_results = ""
+        cv_results, params = self.perform_grid_search(X_train, y_train)
+
+        f = open("results_LR.txt", "w")
+        f.write(validation_results + testing_results + cv_results)
+        f.close()
+
+        # import pickle
+        # d = { "abc" : [1, 2, 3], "qwerty" : [4,5,6] }
+        # afile = open(r'C:\d.pkl', 'wb')
+        # pickle.dump(d, afile)
+        # afile.close()
+
+        # #reload object from file
+        # file2 = open(r'C:\d.pkl', 'rb')
+        # new_d = pickle.load(file2)
+        # file2.close()
+
+        # #print dictionary object loaded from file
+        # print new_d
+
+        #  This format {'logisticregression__C': 1, 'logisticregression__penalty': 'l1'}
+        f = open("params_LR.pkl", 'wb')
+        pickle.dump(params, f)
+        f.close()
 
 
 # Main block to execute the class methods

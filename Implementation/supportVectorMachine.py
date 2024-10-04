@@ -47,11 +47,14 @@ class SVMModel:
         class_report = classification_report(y_true, y_pred)
         
         # Print results
-        print(f"{set_name} Accuracy: {accuracy:.2f}")
-        print(f"{set_name} Confusion Matrix:")
-        print(conf_matrix)
-        print(f"{set_name} Classification Report:")
-        print(class_report)
+        out = ""
+        out += f"{set_name} Accuracy: {accuracy:.2f}" + "\n"
+        out += f"{set_name} Confusion Matrix:" + "\n"
+        out += conf_matrix + "\n"
+        out += f"{set_name} Classification Report:" + "\n"
+        out += class_report + "\n"
+        print(out)
+        return out
 
     def perform_grid_search(self, X_train, y_train):
         # Define the parameter grid
@@ -106,20 +109,23 @@ class SVMModel:
         self.train_svm(X_train, y_train)
 
         # Evaluate the model on the validation set
-        self.evaluate_model(X_val, y_val, set_name="Validation")
+        validation_results = self.evaluate_model(X_val, y_val, set_name="Validation")
         
         # Evaluate the model on the test set
-        self.evaluate_model(X_test, y_test, set_name="Test")
+        testing_results = self.evaluate_model(X_test, y_test, set_name="Test")
         
-        # Perform grid search to find the best hyperparameters
-        self.perform_grid_search(X_train, y_train)
+        # # Perform grid search to find the best hyperparameters
+        # self.perform_grid_search(X_train, y_train)
 
-        # Re-evaluate the model with best parameters on the validation set
-        self.evaluate_model(X_val, y_val, set_name="Validation (Best Parameters)")
+        # # Re-evaluate the model with best parameters on the validation set
+        # self.evaluate_model(X_val, y_val, set_name="Validation (Best Parameters)")
         
-        # Re-evaluate the model with best parameters on the test set
-        self.evaluate_model(X_test, y_test, set_name="Test (Best Parameters)")
+        # # Re-evaluate the model with best parameters on the test set
+        # self.evaluate_model(X_test, y_test, set_name="Test (Best Parameters)")
 
+        f = open("results_SVM.txt", "w")
+        f.write(validation_results + testing_results)
+        f.close()
 
 # Main block to execute the class methods
 if __name__ == "__main__":
