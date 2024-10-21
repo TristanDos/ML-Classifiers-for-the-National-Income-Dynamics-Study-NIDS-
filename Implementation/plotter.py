@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import pickle
 
 '''
 CUSTOM PLOTTING FUNCTION FOR PLOTTING NICE BAR GRAPHS
@@ -134,3 +135,134 @@ def plot_boxplot(series: pd.Series, title: str, ax=None, log_scale=False):
     if ax is None:
         plt.tight_layout()
         plt.show()
+
+'''
+CUSTOM PLOTTING FUNCTION FOR PLOTTING COMPARISON BARGRAPH
+'''
+def plot_model_comparison(df: pd.DataFrame, title: str, ax=None, log_scale=False, rotation=0, group_by_model=False):
+    """
+    Plots a grouped bar graph comparing scores across different models or metrics.
+
+    Parameters:
+    - df (pd.DataFrame): A DataFrame where each column represents a model and each row represents a metric/category.
+    - ax (matplotlib.axes.Axes, optional): The axis to plot on. If None, a new figure is created.
+    - title (str): The title for the plot.
+    - log_scale (bool): Whether to apply a logarithmic scale to the y-axis.
+    - rotation (int): Rotation for x-tick labels.
+    - group_by_model (bool): If True, group by models on the x-axis; otherwise, group by metrics.
+    """
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(10, 6))  # Adjust size if needed
+
+    if group_by_model:
+        # Reshape data to have models on the x-axis and metrics as hue
+        df_long = df.reset_index().melt(id_vars='index', var_name='Metric', value_name='Score')
+        sns.barplot(x='Metric', y='Score', hue='index', data=df_long, ax=ax)
+        ax.set_xlabel('Model')
+        ax.set_ylabel('Score')
+    else:
+        # Default: Group by metrics on the x-axis
+        df_long = df.reset_index().melt(id_vars='index', var_name='Model', value_name='Score')
+        sns.barplot(x='index', y='Score', hue='Model', data=df_long, ax=ax)
+        ax.set_xlabel('Metric')
+
+    ax.set_ylabel('Score')
+    ax.set_xticklabels(df.columns if group_by_model else df.index, rotation=rotation)
+    
+    if log_scale:
+        ax.set_yscale('log')
+        ax.set_title(f'Comparison of {title} (log scale)')
+    else:
+        ax.set_title(f'Comparison of {title}')
+    
+    ax.legend(title='Metric' if group_by_model else 'Model')
+
+    if ax is None:
+        plt.tight_layout()
+        plt.show()
+
+'''
+CUSTOM PLOTTING FUNCTION FOR PLOTTING COMPARISON HEATMAPS
+'''
+def plot_confusion_matrix_heatmaps(df: pd.DataFrame, title: str, ax=None, cmap='Blues', solo=True):
+    """
+    Plots heatmaps comparing confusion matrices from different models.
+
+    Parameters:
+    - df (pd.DataFrame): A DataFrame where each column represents the confusion matrix of a model,
+                         and each row represents a class/category.
+    - title (str): The title for the plot.
+    - ax (matplotlib.axes.Axes, optional): The axis to plot on. If None, a new figure is created.
+    - cmap (str): Colormap to use for the heatmap.
+    """
+    num_models = df.shape[1]
+    num_classes = df.shape[0]
+    
+    if not solo:
+        # Create a grid of subplots for each model's confusion matrix
+        grid = plt.GridSpec(1, num_models, wspace=0.3)
+
+        for i, model in enumerate(df.columns):
+            ax_model = plt.subplot(grid[0, i])  # Create a subplot for each model
+            sns.heatmap(df[model].values.reshape(int(np.sqrt(num_classes)), int(np.sqrt(num_classes))), 
+                        annot=True, fmt='d', cmap=cmap, 
+                        ax=ax_model, cbar=i == 0)  # Show colorbar only for the first subplot
+            ax_model.set_title(model)
+            ax_model.set_xlabel('Predicted')
+            ax_model.set_ylabel('True')
+
+        plt.suptitle(f'Comparison of Confusion Matrices - {title}', fontsize=16)
+        plt.tight_layout(rect=[0, 0, 1, 0.96])  # Adjust layout
+        plt.show()
+
+    else:
+        fig, ax = plt.subplots(nrows=num_models, ncols=1, figsize=(12, 16))
+        plt.subplots_adjust(hspace=0.4)
+
+        for i, model in enumerate(df.columns):
+            sns.heatmap(df[model].values.reshape(int(np.sqrt(num_classes)), int(np.sqrt(num_classes))), 
+                        annot=True, fmt='d', cmap=cmap, 
+                        ax=ax[i])  # Show colorbar only for the first subplot
+            ax[i].set_title(model)
+            ax[i].set_xlabel('Predicted')
+            ax[i].set_ylabel('Actual')
+
+        # plt.title(title)
+        plt.show()
+        plt.close()
+
+
+def save_model(model, model_path: str):
+    """Saves a model to the model path.
+
+    Parameters
+    ----------
+    model : any
+        Model in any format
+    model_path : str
+        Path to save model file
+    """    
+
+    # save
+    with open(model_path,'wb') as f:
+        pickle.dump(model,f)
+
+def load_model(model_path: str):
+    """Loads a model from specified model path.
+
+    Parameters
+    ----------
+    model_path : str
+        Path to load model from
+
+    Returns
+    -------
+    any
+        Model reconstructed from pkl file
+    """    
+
+    # load
+    with open(model_path, 'rb') as f:
+        model = pickle.load(f)
+    
+    return model

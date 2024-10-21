@@ -1,0 +1,3 @@
+Restructuring:
+
+Change constructor to rather use a model path to instantiate model
