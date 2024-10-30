@@ -204,9 +204,10 @@ class RandomForestModel:
 
 # Main block to execute the class methods
 if __name__ == "__main__":
-    OPTIMIZE = True
+    OPTIMIZE = False
 
-    combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_sampled.pkl")
+    # combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_sampled.pkl")
+    combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_no_sampling.pkl")
 
     model_path = "models/RF_model.pkl"
     params_path = "models/RF_params.pkl"

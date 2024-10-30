@@ -207,9 +207,10 @@ class SVMModel:
 
 # Main block to execute the class methods
 if __name__ == "__main__":
-    OPTIMIZE = True
+    OPTIMIZE = False
 
-    combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_sampled.pkl")
+    combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_no_sampling.pkl")
+    # combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_sampled.pkl")
 
     model_path = "models/SVM_model.pkl"
     params_path = "models/SVM_params.pkl"
@@ -221,23 +222,23 @@ if __name__ == "__main__":
     SVM1.run()
 
     # Define the parameter grid
-    # param_grid = {
-    #     'C': [0.1, 1, 10, 100],
-    #     'kernel': ['rbf', 'linear', 'poly'],
-    #     'coef0': [1.0],
-    #     'gamma': ['scale', 'auto', 0.1, 1],
-    #     'degree': [2, 3, 4],  # Only used by poly kernel
-    #     'decision_function_shape': ['ovo', 'ovr'] 
-    # }
-
     param_grid = {
-        'C': [0.1],
-        'kernel': ['rbf'],
-        'gamma': ['scale'],
+        'C': [0.1, 1, 10, 100],
+        'kernel': ['rbf', 'linear', 'poly'],
         'coef0': [1.0],
-        'degree': [2],  # Only used by poly kernel
-        'decision_function_shape': ['ovo'] 
+        'gamma': ['scale', 'auto', 0.1, 1],
+        'degree': [2, 3, 4],  # Only used by poly kernel
+        'decision_function_shape': ['ovo', 'ovr'] 
     }
+
+    # param_grid = {
+    #     'C': [0.1],
+    #     'kernel': ['rbf'],
+    #     'gamma': ['scale'],
+    #     'coef0': [1.0],
+    #     'degree': [2],  # Only used by poly kernel
+    #     'decision_function_shape': ['ovo'] 
+    # }
 
     if OPTIMIZE:
         model_path = "models/SVM_optimized_model.pkl"
