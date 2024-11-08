@@ -9,7 +9,7 @@ import torch.optim as optim
 from sklearn.model_selection import KFold
 from sklearn.metrics import (accuracy_score, classification_report,
                              confusion_matrix, f1_score, precision_score,
-                             recall_score, roc_auc_score)
+                             recall_score, roc_auc_score, roc_curve)
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from tqdm import tqdm
@@ -17,12 +17,16 @@ from torch.utils.data import TensorDataset, DataLoader
 
 import plotter
 
-RANDOM_STATE = 42
+RANDOM_STATE = 20
 NEURONS = 64
-LAYERS = 3
+LAYERS = 5
+BATCH_SIZE = 32
+DROPOUT_RATE = 0.2
+LEARNING_RATE = 0.001
+EPOCHS = 10000
 
 class DeepNeuralNetworkModel(nn.Module):
-    def __init__(self, input_size, neurons=64, layers=3, dropout_rate=0.2):
+    def __init__(self, input_size, neurons=NEURONS, layers=LAYERS, dropout_rate=DROPOUT_RATE):
         super(DeepNeuralNetworkModel, self).__init__()
         self.layers = nn.ModuleList()
 
@@ -102,7 +106,7 @@ class NeuralNetworkHandler:
         y = self.target
         X = self.df.drop(columns=['depressed', 'pid'])
         X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2, random_state=RANDOM_STATE)
-        X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.25, random_state=RANDOM_STATE)
+        X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.1, random_state=RANDOM_STATE)
         X_train = self.scaler.fit_transform(X_train)
         X_val = self.scaler.transform(X_val)
         X_test = self.scaler.transform(X_test)
@@ -133,12 +137,12 @@ class NeuralNetworkHandler:
 
         return X_train, X_val, X_test, y_train, y_val, y_test
 
-    def create_model(self, neurons=NEURONS, layers=LAYERS, dropout_rate=0.2):
+    def create_model(self, neurons=NEURONS, layers=LAYERS, dropout_rate=DROPOUT_RATE):
         if self.input_size is None:
             raise ValueError("Input size is not set. Please load data first.")
         self.model = DeepNeuralNetworkModel(self.input_size, neurons, layers, dropout_rate).to(self.device)
 
-    def train_model(self, X_train, y_train, X_val, y_val, epochs=100, batch_size=32, learning_rate=0.001, verbose=0):
+    def train_model(self, X_train, y_train, X_val, y_val, epochs=EPOCHS, batch_size=BATCH_SIZE, learning_rate=LEARNING_RATE, verbose=0):
         input_size = X_train.shape[1]
         self.input_size = input_size
 
@@ -153,7 +157,7 @@ class NeuralNetworkHandler:
         X_val_tensor = torch.tensor(X_val, dtype=torch.float32).to(self.device)
         y_val_tensor = torch.tensor(y_val.values, dtype=torch.float32).to(self.device)
 
-        for epoch in range(epochs):
+        for epoch in tqdm(range(epochs)):
             # Training phase
             self.model.train()
             optimizer.zero_grad()
@@ -174,7 +178,7 @@ class NeuralNetworkHandler:
 
         return self.model, optimizer, epochs
 
-    def train_model_cv(self, model, X_train, y_train, X_val, y_val, learning_rate=0.001, epochs=10000, batch_size=32, verbose=1):
+    def train_model_cv(self, model, X_train, y_train, X_val, y_val, learning_rate=LEARNING_RATE, epochs=10000, batch_size=32, verbose=1):
         criterion = nn.BCELoss()
         optimizer = optim.Adam(model.parameters(), lr=learning_rate)
         
@@ -260,9 +264,9 @@ class NeuralNetworkHandler:
         class_report = classification_report(y_true, y_pred)
 
         accuracy = accuracy_score(y_true, y_pred)
-        f1 = f1_score(y_true, y_pred)
-        precision = precision_score(y_true, y_pred)
-        recall = recall_score(y_true, y_pred)
+        f1 = f1_score(y_true, y_pred, average='weighted', labels=np.unique(y_pred))
+        precision = precision_score(y_true, y_pred, average='weighted', labels=np.unique(y_pred))
+        recall = recall_score(y_true, y_pred, average='weighted', labels=np.unique(y_pred))
         auc_roc = roc_auc_score(y_true, y_prob)
 
         scores = {}
@@ -271,6 +275,12 @@ class NeuralNetworkHandler:
         scores['precision'] = precision
         scores['recall'] = recall
         scores['auc_roc'] = auc_roc
+
+        # Calculate ROC curve points
+        fpr, tpr, thresholds = roc_curve(y_true, y_prob)
+        scores['fpr'] = fpr
+        scores['tpr'] = tpr
+        scores['thresholds'] = thresholds
 
         metrics = (conf_matrix, class_report, scores)
 
@@ -284,9 +294,9 @@ class NeuralNetworkHandler:
         out = f"{set_name} Confusion Matrix:\n{conf_matrix}\n"
         out += f"{set_name} Classification Report:\n{class_report}\n"
         out += f"{set_name} Accuracy: {accuracy:.2f}\n"
-        out += f"{set_name} F1 Score: {f1:.2f}\n"
         out += f"{set_name} Precision: {precision:.2f}\n"
         out += f"{set_name} Recall: {recall:.2f}\n"
+        out += f"{set_name} F1 Score: {f1:.2f}\n"
         out += f"{set_name} AUC-ROC: {auc_roc:.2f}\n"
         if verbose == 1: print(out)
 
@@ -311,15 +321,17 @@ class NeuralNetworkHandler:
                 print(f"Validating: ", neurons, layers, dropout_rate, learning_rate, batch_size, epochs)
                 model = DeepNeuralNetworkModel(input_dim, neurons=neurons, layers=layers, dropout_rate=dropout_rate).to(self.device)
                 model, _, _ = self.train_model(X_train, y_train, X_val, y_val, 
-                                        learning_rate=learning_rate, epochs=epochs, batch_size=batch_size, verbose=1)
+                                        learning_rate=learning_rate, epochs=epochs, batch_size=batch_size, verbose=0)
                 
                 # Evaluate the model
-                out, metrics = self.evaluate_model(X_val, y_val)
-                conf_matrix, class_report, accuracy, f1, precision, recall, auc_roc = metrics
+                output, metrics = self.evaluate_model(X_val, y_val, path="temp.txt")
+                _, _, scores = metrics
+                accuracy = scores['accuracy']
 
                 score = accuracy
                 
                 if score > best_score:
+                    plotter.save_model(metrics, "metrics/best_NN_metrics.pkl")
                     best_score = score
                     best_params = {'neurons': neurons, 'layers': layers, 'dropout_rate': dropout_rate,
                                 'learning_rate': learning_rate, 'batch_size': batch_size, 'epochs': epochs}
@@ -398,8 +410,10 @@ class NeuralNetworkHandler:
         return self.model.named_parameters, self.model.layers
 
     def optimize_params(self, param_grid):
-        X_train, X_val, X_test, y_train, y_val, y_test = self.load_data_for_cv()
-        self.model, self.params = self.perform_grid_search_cv(X_train, y_train, param_grid)
+        # X_train, X_val, X_test, y_train, y_val, y_test = self.load_data_for_cv()
+        # self.model, self.params = self.perform_grid_search_cv(X_train, y_train, param_grid)
+        X_train, X_val, X_test, y_train, y_val, y_test = self.load_data()
+        self.model, self.params = self.perform_grid_search_valid(X_train, y_train, X_val, y_val, param_grid)
         self.get_params()
 
         print("SAVING MODEL TO: ", self.model_path)
@@ -416,7 +430,7 @@ class NeuralNetworkHandler:
 
         if self.model == None and optimize == False:
             print("TRAINING MODEL: ")
-            self.train_model(X_train, y_train, X_val, y_val, verbose=1)
+            self.train_model(X_train, y_train, X_val, y_val, verbose=0)
 
             print("SAVING MODEL TO: ", self.model_path)
             self.save_model(self.model_path)
@@ -432,8 +446,9 @@ class NeuralNetworkHandler:
 if __name__ == "__main__":
     OPTIMIZE = False
 
+    combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_reduced.pkl")
     # combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_sampled.pkl")
-    combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_no_sampling.pkl")
+    # combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_no_sampling.pkl")
 
     model_path = "models/NN_model.pth"
     params_path = "models/NN_params.pkl"
@@ -445,12 +460,12 @@ if __name__ == "__main__":
     NN1.run(threshold=0.5)
 
     param_grid = {
-        'neurons': [32, 64, 128],
+        'neurons': [32, 64, 128, 256],
         'layers': [3, 4, 5],
         'dropout_rate': [0.1, 0.2, 0.3],
         'learning_rate': [0.001, 0.01],
-        'batch_size': [32, 64],
-        'epochs': [100000]
+        'batch_size': [16, 32, 64],
+        'epochs': [5000]
     }
 
     # param_grid = {

@@ -1,14 +1,18 @@
-import pandas as pd
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import make_pipeline
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, precision_score, recall_score, f1_score, roc_auc_score
-
-import pickle
-import plotter
 import os
+import pickle
 
+import numpy as np
+import pandas as pd
+import plotter
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (accuracy_score, classification_report,
+                             confusion_matrix, f1_score, precision_score,
+                             recall_score, roc_auc_score, roc_curve)
+from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+
+RANDOM_STATE = 20
 
 class LogisticRegressionModel:
     def __init__(self, df : pd.DataFrame, target):
@@ -19,6 +23,7 @@ class LogisticRegressionModel:
         self.target = target
         self.model_path = "models/LR_model.pkl"
         self.metric_path = "metrics/LR_metrics.pkl"
+        self.results_path = "results/LR_results.txt"
         self.threshold = 0.5
         self.optimized = False
 
@@ -47,16 +52,16 @@ class LogisticRegressionModel:
         X = df.drop(columns=['depressed', 'pid'])  # Drop non-feature columns
         
         # Split data into train+validation and test sets (80/20)
-        X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2, random_state=RANDOM_STATE)
         
         # Split train+validation into train and validation sets (60/20)
-        X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.25, random_state=42)
+        X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.25, random_state=RANDOM_STATE)
         
         return X_train, X_val, X_test, y_train, y_val, y_test
 
     def train_logistic_regression(self, X_train, y_train):
         # Initialize and train the Logistic Regression model
-        self.model = LogisticRegression(random_state=42, max_iter=1000, verbose = 1)
+        self.model = LogisticRegression(random_state=42, solver='newton-cholesky', max_iter=10000, penalty='l2', verbose = 1)
         self.model.fit(X_train, y_train)
 
     def evaluate_model(self, X, y_true, set_name="Validation"):
@@ -72,12 +77,25 @@ class LogisticRegressionModel:
         
         # Additional metrics
         accuracy = accuracy_score(y_true, y_pred)
-        f1 = f1_score(y_true, y_pred)
-        precision = precision_score(y_true, y_pred)
-        recall = recall_score(y_true, y_pred)
+        f1 = f1_score(y_true, y_pred, average='weighted', labels=np.unique(y_pred))
+        precision = precision_score(y_true, y_pred, average='weighted', labels=np.unique(y_pred))
+        recall = recall_score(y_true, y_pred, average='weighted', labels=np.unique(y_pred))
         auc_roc = roc_auc_score(y_true, y_prob)  # Use probabilities for AUC-ROC
 
-        metrics = (conf_matrix, class_report, accuracy, f1, precision, recall, auc_roc)
+        scores = {}
+        scores['accuracy'] = accuracy
+        scores['f1'] = f1
+        scores['precision'] = precision
+        scores['recall'] = recall
+        scores['auc_roc'] = auc_roc
+
+        # Calculate ROC curve points
+        fpr, tpr, thresholds = roc_curve(y_true, y_prob)
+        scores['fpr'] = fpr
+        scores['tpr'] = tpr
+        scores['thresholds'] = thresholds
+
+        metrics = (conf_matrix, class_report, scores)
 
         if self.optimized: self.metric_path = "metrics/LR_optimized_metrics.pkl"
         print("SAVING EVALUATION TO: ", self.metric_path)
@@ -90,9 +108,9 @@ class LogisticRegressionModel:
         out += f"{set_name} Classification Report:\n"
         out += str(class_report) + "\n"
         out += f"{set_name} Accuracy: {accuracy:.2f}\n"
-        out += f"{set_name} F1 Score: {f1:.2f}\n"
         out += f"{set_name} Precision: {precision:.2f}\n"
         out += f"{set_name} Recall: {recall:.2f}\n"
+        out += f"{set_name} F1 Score: {f1:.2f}\n"
         out += f"{set_name} AUC-ROC: {auc_roc:.2f}\n"
         
         print(out)
@@ -162,7 +180,7 @@ class LogisticRegressionModel:
         # Evaluate the model on the test set
         testing_results = self.evaluate_model(X_test, y_test, set_name="Test")
 
-        f = open(f"results_LR_threshold_{threshold}.txt", "w")
+        f = open(f"results/results_LR_threshold_{threshold}.txt", "w")
         f.write(validation_results + testing_results)
         f.close()
 
@@ -174,8 +192,9 @@ class LogisticRegressionModel:
 if __name__ == "__main__":
     OPTIMIZE = False
 
-    # combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_sampled.pkl")
-    combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_no_sampling.pkl")
+    # combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_pandas_sampling.pkl")
+    combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_sampled.pkl")
+    # combined_df : pd.DataFrame = pd.read_pickle("CSV/waves_combined_no_sampling.pkl")
 
     LR = LogisticRegressionModel(combined_df, combined_df['depressed'])
 
