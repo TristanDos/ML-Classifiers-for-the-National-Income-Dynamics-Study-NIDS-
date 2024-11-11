@@ -1,0 +1,11 @@
+#!/bin/bash
+#SBATCH --job-name=RL_Assignment
+#SBATCH --output=/home-mscluster/tdremendos/models/result_%N_%j.txt
+#SBATCH --error=/home-mscluster/tdremendos/models/error_%N_%j.txt
+#SBATCH --ntasks=1
+#SBATCH --time=72:00:00
+#SBATCH --partition=stampede
+
+python3 supportVectorMachine.py
+
+wait

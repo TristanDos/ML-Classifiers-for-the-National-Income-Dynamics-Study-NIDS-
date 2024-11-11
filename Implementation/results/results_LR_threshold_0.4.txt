@@ -1,0 +1,36 @@
+Validation Confusion Matrix:
+[[ 1431 10818]
+ [  967 11171]]
+Validation Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.60      0.12      0.20     12249
+           1       0.51      0.92      0.65     12138
+
+    accuracy                           0.52     24387
+   macro avg       0.55      0.52      0.43     24387
+weighted avg       0.55      0.52      0.42     24387
+
+Validation Accuracy: 0.52
+Validation Precision: 0.55
+Validation Recall: 0.52
+Validation F1 Score: 0.42
+Validation AUC-ROC: 0.60
+Test Confusion Matrix:
+[[ 1449 10678]
+ [  976 11285]]
+Test Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.60      0.12      0.20     12127
+           1       0.51      0.92      0.66     12261
+
+    accuracy                           0.52     24388
+   macro avg       0.56      0.52      0.43     24388
+weighted avg       0.56      0.52      0.43     24388
+
+Test Accuracy: 0.52
+Test Precision: 0.56
+Test Recall: 0.52
+Test F1 Score: 0.43
+Test AUC-ROC: 0.60

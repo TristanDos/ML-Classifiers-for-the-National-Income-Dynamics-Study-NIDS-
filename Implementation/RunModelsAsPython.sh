@@ -1,0 +1,4 @@
+python3 logisticRegression.py
+python3 randomForest.py
+python3 neuralNetwork.py
+python3 supportVectorMachine.py

@@ -1,0 +1,30 @@
+Validation Accuracy: 0.57
+Validation Confusion Matrix:
+[[7651 4504]
+ [5945 6287]]
+Validation Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.56      0.63      0.59     12155
+           1       0.58      0.51      0.55     12232
+
+    accuracy                           0.57     24387
+   macro avg       0.57      0.57      0.57     24387
+weighted avg       0.57      0.57      0.57     24387
+
+Test Accuracy: 0.58
+Test Confusion Matrix:
+[[7716 4453]
+ [5903 6316]]
+Test Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.57      0.63      0.60     12169
+           1       0.59      0.52      0.55     12219
+
+    accuracy                           0.58     24388
+   macro avg       0.58      0.58      0.57     24388
+weighted avg       0.58      0.58      0.57     24388
+
+Best Parameters: {'logisticregression__C': 0.1, 'logisticregression__penalty': 'l2'}
+Best Score: 0.5710145589798921
