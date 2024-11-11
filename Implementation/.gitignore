@@ -1,5 +1,4 @@
 fromCluster/
 old/
-models/*.pth
-models/*model.pkl
-models/checkpoint1/
+models/
+CSV/

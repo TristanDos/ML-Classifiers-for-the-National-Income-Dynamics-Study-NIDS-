@@ -175,7 +175,7 @@ def plot_model_comparison(df: pd.DataFrame, title: str, ax=None, log_scale=False
     else:
         ax.set_title(f'Comparison of {title}')
     
-    ax.legend(title='Metric' if group_by_model else 'Model')
+    ax.legend(title='Metric' if group_by_model else 'Model', loc="lower right", fancybox=True, framealpha=0.9)
 
     if ax is None:
         plt.tight_layout()

@@ -12,7 +12,7 @@ from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-RANDOM_STATE = 20
+RANDOM_STATE = 42
 
 class LogisticRegressionModel:
     def __init__(self, df : pd.DataFrame, target):
