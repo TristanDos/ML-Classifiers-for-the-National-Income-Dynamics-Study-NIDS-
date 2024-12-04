@@ -184,7 +184,7 @@ def plot_model_comparison(df: pd.DataFrame, title: str, ax=None, log_scale=False
 '''
 CUSTOM PLOTTING FUNCTION FOR PLOTTING COMPARISON HEATMAPS
 '''
-def plot_confusion_matrix_heatmaps(df: pd.DataFrame, title: str, ax=None, cmap='Blues', solo=True):
+def plot_confusion_matrix_heatmaps(df: pd.DataFrame, title: str, ax=None, cmap='Oranges', solo=True):
     """
     Plots heatmaps comparing confusion matrices from different models.
 
@@ -216,16 +216,17 @@ def plot_confusion_matrix_heatmaps(df: pd.DataFrame, title: str, ax=None, cmap='
         plt.show()
 
     else:
-        fig, ax = plt.subplots(nrows=num_models, ncols=1, figsize=(12, 16))
+        fig, ax = plt.subplots(nrows=num_models, ncols=1, figsize=(30, 40))
         plt.subplots_adjust(hspace=0.4)
+        fig.patch.set_facecolor('#eeeee1')
 
         for i, model in enumerate(df.columns):
             sns.heatmap(df[model].values.reshape(int(np.sqrt(num_classes)), int(np.sqrt(num_classes))), 
                         annot=True, fmt='d', cmap=cmap, 
-                        ax=ax[i])  # Show colorbar only for the first subplot
-            ax[i].set_title(model)
-            ax[i].set_xlabel('Predicted')
-            ax[i].set_ylabel('Actual')
+                        ax=ax[i], annot_kws={"size": 50})  # Show colorbar only for the first subplot
+            ax[i].set_title(model, fontsize=80)
+            ax[i].set_xlabel('Predicted', fontsize=50)
+            ax[i].set_ylabel('Actual', fontsize=50)
 
         # plt.title(title)
         plt.show()
